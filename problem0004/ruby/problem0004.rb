@@ -11,9 +11,6 @@
 start_time = Time.now
 
 upper_limit = 999 * 999
-lower_limit = 100 * 100
-palindromes = Array.new
-answer = 0
 
 def find_3_digit_factors(number)
   limit = Math.sqrt(number)
@@ -27,24 +24,20 @@ def find_3_digit_factors(number)
     end
     x = x + 1
   end
-  return factors
-end
-status = true
-while upper_limit > lower_limit 
-  if upper_limit.to_s.reverse == upper_limit.to_s
-    palindromes.push(upper_limit)
-  end
-  upper_limit -= 1
+  factors
 end
 
-palindromes.each do |p| 
-  if find_3_digit_factors(p).count == 2
-    answer = p
-    break
+status = true
+
+while status 
+  if upper_limit.to_s.reverse == upper_limit.to_s && find_3_digit_factors(upper_limit).count == 2
+    status = false
+  else 
+    upper_limit -= 1
   end
 end
 
 end_time = Time.now
 
-puts "The answer is #{answer}."
+puts "The answer is #{upper_limit}."
 puts "Elapsed time: #{((end_time - start_time)*1000).round(3)} milliseconds."
